@@ -11,15 +11,16 @@ require('dotenv').config();
 const app = express();
 
 const indexRouter = require('./routes/index');
+const wordRouter = require('./routes/dictionary/wordRoutes')
 
-mongoose
-  .connect(port, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true
-  })
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(`MongoDB Error: ${err}`));
+
+mongoose.connect(process.env.MONGODB_URI,{
+  useNewUrlParser:true,
+  useUnifiedTopology:true,
+  useCreateIndex:true
+}).then(()=>{
+  console.log('Mongodb Connected')
+}).catch(err=> console.log(`mongo error:${err}`))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
